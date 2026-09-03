@@ -183,22 +183,7 @@ export const swaggerDocument = {
         responses: { 201: { description: "Segnalazione creata" }, 400: errorResponse, 401: errorResponse },
       },
     },
-    "/api/reports/stats": {
-      get: {
-        tags: ["Segnalazioni"],
-        summary: "Conta le segnalazioni per stato con una query aggregate",
-        security: [{ cookieAuth: [] }],
-        responses: { 200: { description: "Conteggi per stato" }, 401: errorResponse },
-      },
-    },
     "/api/reports/{id}": {
-      get: {
-        tags: ["Segnalazioni"],
-        summary: "Legge una segnalazione",
-        security: [{ cookieAuth: [] }],
-        parameters: [{ in: "path", name: "id", required: true, schema: { type: "string" } }],
-        responses: { 200: { description: "Segnalazione trovata" }, 404: errorResponse },
-      },
       put: {
         tags: ["Segnalazioni"],
         summary: "Modifica una segnalazione propria; l'admin puo modificarle tutte",

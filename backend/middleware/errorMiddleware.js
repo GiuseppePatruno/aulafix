@@ -1,8 +1,3 @@
-export function requestLogger(req, res, next) {
-  console.log(`${req.method} ${req.originalUrl}`);
-  next();
-}
-
 export function notFound(req, res) {
   res.status(404).json({ message: "Risorsa non trovata" });
 }

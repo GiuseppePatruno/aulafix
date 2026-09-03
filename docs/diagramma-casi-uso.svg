@@ -5,7 +5,6 @@
   <rect x="230" y="55" width="750" height="625" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
   <text x="250" y="82" font-family="Arial" font-size="18" font-weight="bold">Sistema AulaFix</text>
 
-  <!-- Associazioni disegnate prima degli attori e dei casi d'uso -->
   <g stroke="#94a3b8" stroke-width="1.5" fill="none">
     <line x1="105" y1="155" x2="315" y2="135"/>
     <line x1="105" y1="155" x2="635" y2="135"/>
@@ -22,7 +21,6 @@
     <line x1="1095" y1="405" x2="625" y2="615"/>
   </g>
 
-  <!-- Attore visitatore -->
   <g stroke="#111827" stroke-width="3" fill="none">
     <circle cx="105" cy="105" r="18"/>
     <line x1="105" y1="123" x2="105" y2="175"/>
@@ -32,7 +30,6 @@
   </g>
   <text x="105" y="235" text-anchor="middle" font-family="Arial" font-size="17">Visitatore</text>
 
-  <!-- Attore studente -->
   <g stroke="#111827" stroke-width="3" fill="none">
     <circle cx="105" cy="350" r="18"/>
     <line x1="105" y1="368" x2="105" y2="420"/>
@@ -42,7 +39,6 @@
   </g>
   <text x="105" y="480" text-anchor="middle" font-family="Arial" font-size="17">Studente</text>
 
-  <!-- Attore tecnico admin -->
   <g stroke="#111827" stroke-width="3" fill="none">
     <circle cx="1095" cy="355" r="18"/>
     <line x1="1095" y1="373" x2="1095" y2="425"/>
@@ -52,7 +48,6 @@
   </g>
   <text x="1095" y="485" text-anchor="middle" font-family="Arial" font-size="17">Tecnico admin</text>
 
-  <!-- Casi d'uso -->
   <g fill="#ffffff" stroke="#24527a" stroke-width="2">
     <ellipse cx="385" cy="135" rx="90" ry="38"/>
     <ellipse cx="705" cy="135" rx="90" ry="38"/>

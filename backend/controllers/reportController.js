@@ -4,9 +4,9 @@ function canChange(report, user) {
   return report.author.toString() === user._id.toString() || user.role === "admin";
 }
 
-function sendRealtimeUpdate(req, action, reportId) {
+function sendRealtimeUpdate(req) {
   const io = req.app.get("io");
-  io.emit("report:changed", { action, reportId });
+  io.emit("report:changed");
 }
 
 export async function getReports(req, res, next) {
@@ -40,37 +40,6 @@ export async function getReports(req, res, next) {
   }
 }
 
-export async function getReportById(req, res, next) {
-  try {
-    const report = await Report.findById(req.params.id).populate("author", "name role");
-
-    if (!report) {
-      return res.status(404).json({ message: "Segnalazione non trovata" });
-    }
-
-    res.json({ report });
-  } catch (error) {
-    next(error);
-  }
-}
-
-export async function getStats(req, res, next) {
-  try {
-    const grouped = await Report.aggregate([
-      { $group: { _id: "$status", total: { $sum: 1 } } },
-    ]);
-
-    const stats = { aperta: 0, "in-lavorazione": 0, risolta: 0 };
-    grouped.forEach((item) => {
-      stats[item._id] = item.total;
-    });
-
-    res.json({ stats });
-  } catch (error) {
-    next(error);
-  }
-}
-
 export async function createReport(req, res, next) {
   try {
     const { title, description, room, priority } = req.body;
@@ -88,7 +57,7 @@ export async function createReport(req, res, next) {
     });
 
     const populatedReport = await report.populate("author", "name role");
-    sendRealtimeUpdate(req, "created", report._id.toString());
+    sendRealtimeUpdate(req);
     res.status(201).json({ report: populatedReport });
   } catch (error) {
     next(error);
@@ -107,14 +76,15 @@ export async function updateReport(req, res, next) {
       return res.status(403).json({ message: "Non puoi modificare questa segnalazione" });
     }
 
-    const editableFields = ["title", "description", "room", "priority", "status"];
-    editableFields.forEach((field) => {
-      if (req.body[field] !== undefined) report[field] = req.body[field];
-    });
+    if (req.body.title !== undefined) report.title = req.body.title;
+    if (req.body.description !== undefined) report.description = req.body.description;
+    if (req.body.room !== undefined) report.room = req.body.room;
+    if (req.body.priority !== undefined) report.priority = req.body.priority;
+    if (req.body.status !== undefined) report.status = req.body.status;
 
     await report.save();
     const populatedReport = await report.populate("author", "name role");
-    sendRealtimeUpdate(req, "updated", report._id.toString());
+    sendRealtimeUpdate(req);
     res.json({ report: populatedReport });
   } catch (error) {
     next(error);
@@ -134,7 +104,7 @@ export async function deleteReport(req, res, next) {
     }
 
     await report.deleteOne();
-    sendRealtimeUpdate(req, "deleted", report._id.toString());
+    sendRealtimeUpdate(req);
     res.json({ message: "Segnalazione eliminata" });
   } catch (error) {
     next(error);
