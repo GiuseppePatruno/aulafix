@@ -14,4 +14,4 @@ WORKDIR /app/backend
 ENV NODE_ENV=production
 EXPOSE 5000
 
-CMD ["npm", "start"]
+CMD ["sh", "-c", "npm run seed && npm start"]
